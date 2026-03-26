@@ -1,96 +1,44 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;
-    height: 100vh;
-    background: linear-gradient(135deg, #141e30, #243b55);
-    font-family: 'Segoe UI', sans-serif;
-    padding-top: 50px;
+let display = document.getElementById("display");
+let historyList = document.getElementById("historyList");
+
+function appendValue(value) {
+    display.value += value;
 }
 
-.calculator {
-    backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+function clearDisplay() {
+    display.value = "";
 }
 
-#display {
-    width: 100%;
-    height: 60px;
-    margin-bottom: 15px;
-    font-size: 26px;
-    text-align: right;
-    border: none;
-    padding: 10px;
-    border-radius: 12px;
-    background: rgba(0,0,0,0.3);
-    color: #fff;
+function calculate() {
+    try {
+        let result = eval(display.value);
+
+        // Add to history
+        let li = document.createElement("li");
+        li.textContent = display.value + " = " + result;
+        li.onclick = function() {
+            display.value = result; // click to reuse
+        }
+        historyList.appendChild(li);
+
+        display.value = result;
+    } catch {
+        display.value = "Error";
+    }
 }
 
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 70px);
+// Clear all history
+function clearHistory() {
+    historyList.innerHTML = "";
 }
 
-button {
-    height: 60px;
-    margin: 6px;
-    font-size: 18px;
-    border: none;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-button:hover {
-    background: rgba(255,255,255,0.4);
-}
-
-button:active {
-    transform: scale(0.95);
-}
-
-/* Operator buttons */
-button:nth-child(4n) {
-    background: #ff9500;
-}
-
-button:nth-child(4n):hover {
-    background: #ffad33;
-}
-
-/* Equals button */
-button:last-child {
-    background: #28a745;
-}
-
-button:last-child:hover {
-    background: #45c163;
-}
-
-/* History Panel */
-.history {
-    color: white;
-}
-
-.history h3 {
-    margin-bottom: 10px;
-}
-
-#historyList {
-    list-style: none;
-    padding: 0;
-}
-
-#historyList li {
-    background: rgba(255,255,255,0.1);
-    padding: 8px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    font-size: 14px;
-}
+// Keyboard support
+document.addEventListener("keydown", function(event) {
+    if (!isNaN(event.key) || "+-*/.".includes(event.key)) {
+        appendValue(event.key);
+    } else if (event.key === "Enter") {
+        calculate();
+    } else if (event.key === "Backspace") {
+        display.value = display.value.slice(0, -1);
+    }
+});
