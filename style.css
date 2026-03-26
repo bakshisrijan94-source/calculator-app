@@ -1,10 +1,12 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    gap: 30px;
     height: 100vh;
     background: linear-gradient(135deg, #141e30, #243b55);
     font-family: 'Segoe UI', sans-serif;
+    padding-top: 50px;
 }
 
 .calculator {
@@ -69,4 +71,26 @@ button:last-child {
 
 button:last-child:hover {
     background: #45c163;
+}
+
+/* History Panel */
+.history {
+    color: white;
+}
+
+.history h3 {
+    margin-bottom: 10px;
+}
+
+#historyList {
+    list-style: none;
+    padding: 0;
+}
+
+#historyList li {
+    background: rgba(255,255,255,0.1);
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    font-size: 14px;
 }

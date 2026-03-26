@@ -1,4 +1,5 @@
 let display = document.getElementById("display");
+let historyList = document.getElementById("historyList");
 
 function appendValue(value) {
     display.value += value;
@@ -10,11 +11,20 @@ function clearDisplay() {
 
 function calculate() {
     try {
-        display.value = eval(display.value);
+        let result = eval(display.value);
+
+        // Add to history
+        let li = document.createElement("li");
+        li.textContent = display.value + " = " + result;
+        historyList.appendChild(li);
+
+        display.value = result;
     } catch {
         display.value = "Error";
     }
 }
+
+// Keyboard support
 document.addEventListener("keydown", function(event) {
     if (!isNaN(event.key) || "+-*/.".includes(event.key)) {
         appendValue(event.key);
