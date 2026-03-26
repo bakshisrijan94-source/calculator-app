@@ -16,12 +16,20 @@ function calculate() {
         // Add to history
         let li = document.createElement("li");
         li.textContent = display.value + " = " + result;
+        li.onclick = function() {
+            display.value = result; // click to reuse
+        }
         historyList.appendChild(li);
 
         display.value = result;
     } catch {
         display.value = "Error";
     }
+}
+
+// Clear all history
+function clearHistory() {
+    historyList.innerHTML = "";
 }
 
 // Keyboard support
