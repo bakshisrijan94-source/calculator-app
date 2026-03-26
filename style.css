@@ -51,3 +51,18 @@ button:hover {
 button:active {
     transform: scale(0.95);
 }
+button:nth-child(4n) {
+    background: #ff9500;
+}
+
+button:nth-child(4n):hover {
+    background: #ffad33;
+}
+
+button:last-child {
+    background: #28a745;
+}
+
+button:last-child:hover {
+    background: #45c163;
+}

@@ -15,3 +15,12 @@ function calculate() {
         display.value = "Error";
     }
 }
+document.addEventListener("keydown", function(event) {
+    if (!isNaN(event.key) || "+-*/.".includes(event.key)) {
+        appendValue(event.key);
+    } else if (event.key === "Enter") {
+        calculate();
+    } else if (event.key === "Backspace") {
+        display.value = display.value.slice(0, -1);
+    }
+});
